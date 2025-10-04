@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# Code Typing Practice - Enhanced</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        :root {
+            --bg-primary: #1E1E1E;
+            --bg-secondary: #252526;
+            --bg-tertiary: #2D2D30;
+            --border-color: #3E3E42;
+            --text-primary: #D4D4D4;
+            --text-secondary: #858585;
+            --accent-color: #0E639C;
+            --accent-hover: #1177BB;
+            --success-color: #10B981;
+            --error-color: #EF4444;
+            --warning-color: #F59E0B;
+            --line-number-bg: #1E1E1E;
+            --line-number-color: #858585;
+            --ghost-highlight: rgba(255, 255, 0, 0.3);
+        }
+
+        /* VS Code Dark Theme (Default) */
+        body[data-theme="vscode"] {
+            --bg-primary: #1E1E1E;
+            --bg-secondary: #252526;
+            --bg-tertiary: #2D2D30;
+            --border-color: #3E3E42;
+            --text-primary: #D4D4D4;
+            --accent-color: #0E639C;
+            --keyword-color: #569CD6;
+            --string-color: #CE9178;
+            --comment-color: #6A9955;
+            --class-color: #4EC9B0;
+            --number-color: #B5CEA8;
+        }
+
+        /* Dracula Theme */
+        body[data-theme="dracula"] {
+            --bg-primary: #282A36;
+            --bg-secondary: #21222C;
+            --bg-tertiary: #191A21;
+            --border-color: #44475A;
+            --text-primary: #F8F8F2;
+            --text-secondary: #6272A4;
+            --accent-color: #BD93F9;
+            --accent-hover: #9D7CD8;
+            --line-number-bg: #21222C;
+            --line-number-color: #6272A4;
+            --keyword-color: #FF79C6;
+            --string-color: #F1FA8C;
+            --comment-color: #6272A4;
+            --class-color: #8BE9FD;
+            --number-color: #BD93F9;
+        }
+
+        /* Monokai Theme */
+        body[data-theme="monokai"] {
+            --bg-primary: #272822;
+            --bg-secondary: #1E1F1C;
+            --bg-tertiary: #1A1B17;
+            --border-color: #3E3D32;
+            --text-primary: #F8F8F2;
+            --text-secondary: #75715E;
+            --accent-color: #F92672;
+            --accent-hover: #D91A5C;
+            --line-number-bg: #1E1F1C;
+            --line-number-color: #75715E;
+            --keyword-color: #F92672;
+            --string-color: #E6DB74;
+            --comment-color: #75715E;
+            --class-color: #A6E22E;
+            --number-color: #AE81FF;
+        }
+
+        /* Nord Theme */
+        body[data-theme="nord"] {
+            --bg-primary: #2E3440;
+            --bg-secondary: #3B4252;
+            --bg-tertiary: #434C5E;
+            --border-color: #4C566A;
+            --text-primary: #ECEFF4;
+            --text-secondary: #D8DEE9;
+            --accent-color: #88C0D0;
+            --accent-hover: #5E81AC;
+            --line-number-bg: #3B4252;
+            --line-number-color: #616E88;
+            --keyword-color: #81A1C1;
+            --string-color: #A3BE8C;
+            --comment-color: #616E88;
+            --class-color: #88C0D0;
+            --number-color: #B48EAD;
+        }
+
+        /* Solarized Dark Theme */
+        body[data-theme="solarized-dark"] {
+            --bg-primary: #002B36;
+            --bg-secondary: #073642;
+            --bg-tertiary: #002731;
+            --border-color: #094656;
+            --text-primary: #839496;
+            --text-secondary: #586E75;
+            --accent-color: #268BD2;
+            --accent-hover: #2AA198;
+            --line-number-bg: #073642;
+            --line-number-color: #586E75;
+            --keyword-color: #268BD2;
+            --string-color: #2AA198;
+            --comment-color: #586E75;
+            --class-color: #B58900;
+            --number-color: #D33682;
+        }
+
+        /* One Dark Theme */
+        body[data-theme="onedark"] {
+            --bg-primary: #282C34;
+            --bg-secondary: #21252B;
+            --bg-tertiary: #1B1F23;
+            --border-color: #181A1F;
+            --text-primary: #ABB2BF;
+            --text-secondary: #5C6370;
+            --accent-color: #61AFEF;
+            --accent-hover: #528BFF;
+            --line-number-bg: #21252B;
+            --line-number-color: #4B5263;
+            --keyword-color: #C678DD;
+            --string-color: #98C379;
+            --comment-color: #5C6370;
+            --class-color: #E5C07B;
+            --number-color: #D19A66;
+        }
+
+        /* Light Theme */
+        body[data-theme="light"] {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F3F3F3;
+            --bg-tertiary: #E8E8E8;
+            --border-color: #D4D4D4;
+            --text-primary: #1E1E1E;
+            --text-secondary: #6E6E6E;
+            --accent-color: #0066B8;
+            --accent-hover: #005A9E;
+            --line-number-bg: #F3F3F3;
+            --line-number-color: #237893;
+            --keyword-color: #0000FF;
+            --string-color: #A31515;
+            --comment-color: #008000;
+            --class-color: #2B91AF;
+            --number-color: #098658;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            max-width: 100vw;
+        }
+
+        .header {
+            background: var(--bg-tertiary);
+            padding: 15px 30px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-icon {
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            position: relative;
+        }
+
+        .btn-icon:hover {
+            background: var(--border-color);
+        }
+
+        .btn-icon.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .theme-selector, .music-selector {
+            position: relative;
+        }
+
+        .theme-dropdown, .music-dropdown {
+            padding: 8px 15px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 14px;
+            appearance: none;
+            min-width: 120px;
+        }
+
+        .theme-dropdown:hover, .music-dropdown:hover {
+            background: var(--border-color);
+        }
+
+        .progress-bar-container {
+            background: var(--bg-tertiary);
+            padding: 10px 30px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--text-primary);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box.flash-green {
+            animation: flashGreen 0.3s ease;
+        }
+
+        .stat-box.flash-red {
+            animation: flashRed 0.3s ease;
+        }
+
+        @keyframes flashGreen {
+            0%, 100% {
+                background: var(--bg-secondary);
+                box-shadow: none;
+            }
+            50% {
+                background: rgba(16, 185, 129, 0.3);
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+                border-color: var(--success-color);
+            }
+        }
+
+        @keyframes flashRed {
+            0%, 100% {
+                background: var(--bg-secondary);
+                box-shadow: none;
+            }
+            50% {
+                background: rgba(239, 68, 68, 0.3);
+                box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+                border-color: var(--error-color);
+            }
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .score-value {
+            color: #FFD700;
+        }
+
+        .wpm-value {
+            color: #10B981;
+        }
+
+        .accuracy-value {
+            color: var(--accent-color);
+        }
+
+        .timer-value {
+            color: #F59E0B;
+            font-family: 'Courier New', monospace;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+            width: 0%;
+            transition: width 0.2s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+            max-width: 100vw;
+        }
+
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .panel.hidden {
+            flex: 0;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: var(--bg-secondary);
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-reference-mobile {
+            display: none;
+        }
+
+        .editor-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            background: var(--bg-primary);
+            position: relative;
+        }
+
+        .line-numbers {
+            background: var(--line-number-bg);
+            color: var(--line-number-color);
+            padding: 20px 10px;
+            padding-left: 5px;
+            text-align: right;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid var(--border-color);
+            min-width: 50px;
+            overflow: hidden;
+            white-space: pre-line;
+            position: relative;
+            z-index: 1;
+        }
+
+        .editor-scroll-container {
+            flex: 1;
+            overflow: auto;
+            position: relative;
+        }
+
+        .code-editor {
+            width: 100%;
+            min-height: 100%;
+            padding: 20px;
+            background: transparent;
+            color: var(--text-primary);
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            border: none;
+            resize: none;
+            outline: none;
+            white-space: pre;
+            overflow-wrap: normal;
+        }
+
+        .code-display {
+            padding: 20px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre;
+            overflow-wrap: normal;
+            min-height: 100%;
+            pointer-events: none;
+        }
+
+        .divider {
+            width: 4px;
+            background: var(--border-color);
+            cursor: col-resize;
+            transition: background 0.3s;
+        }
+
+        .divider:hover {
+            background: var(--accent-color);
+        }
+
+        .divider.hidden {
+            display: none;
+        }
+
+        /* Keyboard Heatmap */
+        .keyboard-heatmap {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 500;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            display: none;
+        }
+
+        .keyboard-heatmap.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heatmap-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .keyboard-row {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 4px;
+            justify-content: center;
+        }
+
+        .key {
+            min-width: 40px;
+            height: 40px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .key.space {
+            min-width: 200px;
+        }
+
+        .key-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .key.heat-1 { background: rgba(16, 185, 129, 0.2); }
+        .key.heat-2 { background: rgba(16, 185, 129, 0.4); }
+        .key.heat-3 { background: rgba(245, 158, 11, 0.4); }
+        .key.heat-4 { background: rgba(245, 158, 11, 0.6); }
+        .key.heat-5 { background: rgba(239, 68, 68, 0.6); }
+        .key.heat-max { background: rgba(239, 68, 68, 0.8); color: white; }
+
+        /* Ghost Typing Highlight */
+        .ghost-char {
+            background: var(--ghost-highlight);
+            border-radius: 2px;
+            animation: ghostPulse 1s infinite;
+        }
+
+        @keyframes ghostPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: var(--keyword-color); font-weight: 600; }
+        .string { color: var(--string-color); }
+        .comment { color: var(--comment-color); font-style: italic; }
+        .class-name { color: var(--class-color); }
+        .type { color: var(--class-color); }
+        .number { color: var(--number-color); }
+
+        .char-correct {
+            background-color: rgba(16, 185, 129, 0.15);
+        }
+
+        .char-incorrect {
+            background-color: rgba(239, 68, 68, 0.3);
+            text-decoration: underline wavy var(--error-color);
+        }
+
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-tertiary);
+            padding: 40px 60px;
+            border-radius: 8px;
+            border: 2px solid var(--success-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            display: none;
+            z-index: 1000;
+            max-width: 90%;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--success-color);
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--success-color);
+            margin-bottom: 10px;
+        }
+
+        .success-stats {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .final-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FFD700;
+            margin: 20px 0;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .volume-slider {
+            width: 60px;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--border-color);
+            outline: none;
+            border-radius: 2px;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-color);
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            background: var(--accent-color);
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        /* Improved Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            opacity: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 10001;
+            white-space: nowrap;
+            font-size: 12px;
+            border: 2px solid var(--border-color);
+            transition: opacity 0.3s, visibility 0.3s;
+            pointer-events: none;
+            
+            /* Position below the button */
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 8px;
+        }
+
+        .tooltip .tooltiptext::before {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent var(--border-color) transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .close-heatmap {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .close-heatmap:hover {
+            color: var(--error-color);
+        }
+
+        /* Visual Feedback Indicator */
+        .feedback-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .feedback-indicator.show-correct {
+            display: flex;
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            animation: feedbackPulse 0.3s ease;
+        }
+
+        .feedback-indicator.show-error {
+            display: flex;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            animation: feedbackShake 0.3s ease;
+        }
+
+        @keyframes feedbackPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes feedbackShake {
+            0%, 100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            25% {
+                transform: translate(-50%, -50%) rotate(-5deg);
+            }
+            75% {
+                transform: translate(-50%, -50%) rotate(5deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .header {
+                padding: 10px 15px;
+            }
+
+            .title {
+                font-size: 16px;
+            }
+
+            .controls {
+                gap: 5px;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .btn-icon {
+                padding: 6px 10px;
+                font-size: 14px;
+                min-width: 35px;
+            }
+
+            .theme-dropdown, .music-dropdown {
+                min-width: 100px;
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .stat-box {
+                padding: 4px 8px;
+                gap: 5px;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .stat-value {
+                font-size: 14px;
+            }
+
+            .keyboard-heatmap {
+                max-width: 90%;
+                left: 50%;
+                transform: translateX(-50%);
+                right: auto;
+                bottom: 10px;
+            }
+
+            .key {
+                min-width: 35px;
+                height: 35px;
+                font-size: 11px;
+            }
+
+            .key.space {
+                min-width: 150px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                height: 100vh;
+                height: 100dvh; /* Dynamic viewport height for mobile */
+                overflow-x: hidden;
+            }
+
+            .header {
+                padding: 8px 10px;
+            }
+
+            .title {
+                font-size: 14px;
+                flex: 1;
+            }
+
+            .controls {
+                width: 100%;
+                order: 2;
+                justify-content: flex-start;
+            }
+
+            .btn {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+
+            /* Hide reference panel by default on mobile */
+            .panel#referencePanel {
+                display: none;
+            }
+
+            .panel#referencePanel.mobile-visible {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1000;
+                background: var(--bg-primary);
+            }
+
+            .panel#referencePanel.mobile-visible .close-reference-mobile {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 8px;
+                background: var(--error-color);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .main-container {
+                flex-direction: column;
+                overflow-x: hidden;
+                max-width: 100vw;
+            }
+
+            .panel {
+                min-height: 0;
+                flex: 1;
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+
+            .line-numbers {
+                min-width: 35px;
+                font-size: 12px;
+                padding: 15px 5px;
+            }
+
+            .code-editor, .code-display {
+                font-size: 12px;
+                padding: 15px;
+                max-width: 100%;
+                overflow-x: auto;
+            }
+
+            .editor-scroll-container {
+                max-width: 100%;
+                overflow-x: auto;
+            }
+
+            .editor-wrapper {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+
+            .stats-row {
+                gap: 5px;
+            }
+
+            .stat-box {
+                padding: 3px 6px;
+            }
+
+            .stat-label {
+                font-size: 9px;
+            }
+
+            .stat-value {
+                font-size: 12px;
+            }
+
+            .progress-bar-container {
+                padding: 8px 10px;
+            }
+
+            .progress-info {
+                font-size: 11px;
+                gap: 5px;
+            }
+
+            .success-message {
+                padding: 30px 40px;
+            }
+
+            .success-icon {
+                font-size: 40px;
+            }
+
+            .success-title {
+                font-size: 22px;
+            }
+
+            .final-score {
+                font-size: 36px;
+            }
+
+            .keyboard-heatmap {
+                padding: 10px;
+                max-width: 95%;
+            }
+
+            .key {
+                min-width: 28px;
+                height: 28px;
+                font-size: 10px;
+            }
+
+            .key.space {
+                min-width: 120px;
+            }
+
+            .volume-control {
+                display: none;
+            }
+
+            .music-selector {
+                display: none;
+            }
+
+            /* Show reference toggle button on mobile */
+            #hideReferenceBtn {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 8px 8px;
+                flex-wrap: wrap;
+            }
+
+            .title {
+                font-size: 13px;
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .title i {
+                font-size: 12px;
+            }
+
+            .controls {
+                width: 100%;
+                justify-content: space-between;
+                gap: 4px;
+            }
+
+            .btn-icon {
+                padding: 5px 7px;
+                font-size: 12px;
+                min-width: 30px;
+            }
+
+            .theme-dropdown {
+                min-width: 70px;
+                font-size: 10px;
+                padding: 5px 7px;
+            }
+
+            .stat-box {
+                padding: 2px 5px;
+                font-size: 10px;
+            }
+
+            .stat-label {
+                font-size: 8px;
+            }
+
+            .stat-value {
+                font-size: 11px;
+            }
+
+            .progress-info {
+                font-size: 10px;
+            }
+
+            .progress-bar-container {
+                padding: 6px 8px;
+            }
+
+            .line-numbers {
+                min-width: 30px;
+                font-size: 11px;
+                padding: 12px 3px;
+            }
+
+            .code-editor, .code-display {
+                font-size: 11px;
+                padding: 12px;
+            }
+
+            .key {
+                min-width: 22px;
+                height: 22px;
+                font-size: 8px;
+                gap: 2px;
+            }
+
+            .key.space {
+                min-width: 90px;
+            }
+
+            .key-count {
+                width: 14px;
+                height: 14px;
+                font-size: 7px;
+                top: -6px;
+                right: -6px;
+            }
+
+            .keyboard-heatmap {
+                bottom: 5px;
+                padding: 8px;
+            }
+
+            .success-message {
+                padding: 20px 25px;
+                max-width: 95%;
+            }
+
+            .success-icon {
+                font-size: 35px;
+                margin-bottom: 10px;
+            }
+
+            .success-title {
+                font-size: 18px;
+            }
+
+            .success-stats {
+                font-size: 12px;
+            }
+
+            .final-score {
+                font-size: 28px;
+                margin: 10px 0;
+            }
+        }
+
+        /* Fix for very small screens */
+        @media (max-width: 360px) {
+            .title {
+                font-size: 12px;
+            }
+
+            .controls {
+                gap: 3px;
+            }
+
+            .btn-icon {
+                padding: 4px 6px;
+                font-size: 11px;
+                min-width: 28px;
+            }
+
+            .theme-dropdown {
+                min-width: 60px;
+                font-size: 9px;
+            }
+
+            .stat-box {
+                padding: 2px 4px;
+            }
+
+            .code-editor, .code-display {
+                font-size: 10px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="vscode">
+    <div class="header">
+        <div class="title">
+            <i class="fas fa-code"></i>
+            C# Code Typing Practice
+        </div>
+        <div class="controls">
+            <div class="theme-selector">
+                <select class="theme-dropdown" id="themeSelector">
+                    <option value="vscode">VS Code Dark</option>
+                    <option value="dracula">🧛 Dracula</option>
+                    <option value="monokai">🎨 Monokai</option>
+                    <option value="nord">❄️ Nord</option>
+                    <option value="onedark">⚫ One Dark</option>
+                    <option value="solarized-dark">🌅 Solarized</option>
+                    <option value="light">☀️ Light</option>
+                </select>
+            </div>
+
+            <div class="music-selector">
+                <select class="music-dropdown" id="musicSelector">
+                    <option value="">🎵 Music: Off</option>
+                    <option value="lofi">🎧 Lo-fi Hip Hop</option>
+                    <option value="jazz">🎷 Jazz Cafe</option>
+                    <option value="piano">🎹 Piano</option>
+                    <option value="ambient">🌊 Ambient</option>
+                    <option value="chillhop">☕ Chillhop</option>
+                </select>
+            </div>
+
+            <div class="volume-control">
+                <i class="fas fa-music"></i>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="30">
+            </div>
+            
+            <button class="btn-icon tooltip" id="ghostToggle">
+                <i class="fas fa-ghost"></i>
+                <span class="tooltiptext">Ghost Typing</span>
+            </button>
+
+            <button class="btn-icon tooltip" id="heatmapToggle">
+                <i class="fas fa-fire"></i>
+                <span class="tooltiptext">Keyboard Heatmap</span>
+            </button>
+
+            <button class="btn-icon tooltip active" id="soundToggle">
+                <i class="fas fa-volume-up"></i>
+                <span class="tooltiptext">Toggle Sound</span>
+            </button>
+
+            <button class="btn-icon tooltip" id="hideReferenceBtn">
+                <i class="fas fa-eye"></i>
+                <span class="tooltiptext">Hide Reference</span>
+            </button>
+
+            <button class="btn-icon tooltip" id="resetBtn">
+                <i class="fas fa-redo"></i>
+                <span class="tooltiptext">Reset</span>
+            </button>
+
+            <button class="btn-icon tooltip" id="clearBtn">
+                <i class="fas fa-trash"></i>
+                <span class="tooltiptext">Clear All</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="progress-bar-container">
+        <div class="progress-info">
+            <div class="stats-row">
+                <div class="stat-box" id="timerBox">
+                    <span class="stat-label">Timer</span>
+                    <span class="stat-value timer-value" id="timerDisplay">00:00</span>
+                </div>
+                <div class="stat-box" id="scoreBox">
+                    <span class="stat-label">Score</span>
+                    <span class="stat-value score-value" id="scoreDisplay">0</span>
+                </div>
+                <div class="stat-box" id="wpmBox">
+                    <span class="stat-label">WPM</span>
+                    <span class="stat-value wpm-value" id="wpmDisplay">0</span>
+                </div>
+                <div class="stat-box" id="accuracyBox">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value accuracy-value" id="accuracyDisplay">100%</span>
+                </div>
+            </div>
+            <span>Progress: <strong id="progressPercent">0%</strong> (<strong id="correctChars">0</strong> / <strong id="totalChars">0</strong>)</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="panel" id="referencePanel">
+            <div class="panel-header">
+                <span><i class="fas fa-file-code"></i> Reference Code</span>
+                <button class="close-reference-mobile" onclick="closeReferenceMobile()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+            <div class="editor-wrapper">
+                <div class="line-numbers" id="referenceLineNumbers">1</div>
+                <div class="editor-scroll-container" id="referenceContainer">
+                    <textarea class="code-editor" id="referenceCode" placeholder="Paste your C# code here..." spellcheck="false"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider" id="divider"></div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <span><i class="fas fa-keyboard"></i> Your Code</span>
+            </div>
+            <div class="editor-wrapper">
+                <div class="line-numbers" id="userLineNumbers">1</div>
+                <div class="editor-scroll-container" id="userContainer">
+                    <div class="code-display" id="userCodeDisplay"></div>
+                    <textarea class="code-editor" id="userCode" placeholder="Start typing here..." spellcheck="false" style="position: absolute; top: 0; left: 0; color: transparent; background: transparent; caret-color: var(--text-primary); z-index: 2;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visual Feedback Indicator -->
+    <div class="feedback-indicator" id="feedbackIndicator"></div>
+
+    <!-- Keyboard Heatmap -->
+    <div class="keyboard-heatmap" id="keyboardHeatmap">
+        <div class="heatmap-title">
+            <span><i class="fas fa-fire"></i> Keyboard Heatmap</span>
+            <button class="close-heatmap" onclick="toggleHeatmap()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="keyboard-row">
+            <div class="key" data-key="1">1</div>
+            <div class="key" data-key="2">2</div>
+            <div class="key" data-key="3">3</div>
+            <div class="key" data-key="4">4</div>
+            <div class="key" data-key="5">5</div>
+            <div class="key" data-key="6">6</div>
+            <div class="key" data-key="7">7</div>
+            <div class="key" data-key="8">8</div>
+            <div class="key" data-key="9">9</div>
+            <div class="key" data-key="0">0</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key" data-key="q">Q</div>
+            <div class="key" data-key="w">W</div>
+            <div class="key" data-key="e">E</div>
+            <div class="key" data-key="r">R</div>
+            <div class="key" data-key="t">T</div>
+            <div class="key" data-key="y">Y</div>
+            <div class="key" data-key="u">U</div>
+            <div class="key" data-key="i">I</div>
+            <div class="key" data-key="o">O</div>
+            <div class="key" data-key="p">P</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key" data-key="a">A</div>
+            <div class="key" data-key="s">S</div>
+            <div class="key" data-key="d">D</div>
+            <div class="key" data-key="f">F</div>
+            <div class="key" data-key="g">G</div>
+            <div class="key" data-key="h">H</div>
+            <div class="key" data-key="j">J</div>
+            <div class="key" data-key="k">K</div>
+            <div class="key" data-key="l">L</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key" data-key="z">Z</div>
+            <div class="key" data-key="x">X</div>
+            <div class="key" data-key="c">C</div>
+            <div class="key" data-key="v">V</div>
+            <div class="key" data-key="b">B</div>
+            <div class="key" data-key="n">N</div>
+            <div class="key" data-key="m">M</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key space" data-key="space">SPACE</div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="success-message" id="successMessage">
+        <div class="success-icon"><i class="fas fa-trophy"></i></div>
+        <div class="success-title">Perfect!</div>
+        <div class="final-score" id="finalScore">0</div>
+        <div class="success-stats" id="finalStats">You've completed the code successfully!</div>
+        <button class="btn" onclick="closeSuccess()">Continue</button>
+    </div>
+
+    <!-- Background Music Audio Element -->
+    <audio id="bgMusic" loop></audio>
+
+    <script>
+        // C# Keywords
+        const CSHARP_KEYWORDS = [
+            'abstract', 'as', 'base', 'bool', 'break', 'byte', 'case', 'catch', 'char', 'checked',
+            'class', 'const', 'continue', 'decimal', 'default', 'delegate', 'do', 'double', 'else',
+            'enum', 'event', 'explicit', 'extern', 'false', 'finally', 'fixed', 'float', 'for',
+            'foreach', 'goto', 'if', 'implicit', 'in', 'int', 'interface', 'internal', 'is', 'lock',
+            'long', 'namespace', 'new', 'null', 'object', 'operator', 'out', 'override', 'params',
+            'private', 'protected', 'public', 'readonly', 'ref', 'return', 'sbyte', 'sealed',
+            'short', 'sizeof', 'stackalloc', 'static', 'string', 'struct', 'switch', 'this',
+            'throw', 'true', 'try', 'typeof', 'uint', 'ulong', 'unchecked', 'unsafe', 'ushort',
+            'using', 'virtual', 'void', 'volatile', 'while', 'var', 'async', 'await'
+        ];
+
+        const CSHARP_TYPES = ['System', 'Console', 'String', 'Int32', 'List', 'Dictionary', 'Array'];
+
+        // Background Music URLs
+        const MUSIC_TRACKS = {
+            lofi: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+            jazz: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+            piano: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+            ambient: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+            chillhop: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'
+        };
+
+        // State
+        let soundEnabled = true;
+        let ghostTypingEnabled = false;
+        let referenceHidden = false;
+        let audioContext = null;
+        let timerInterval = null;
+        let timerSeconds = 0;
+        
+        // Stats
+        let score = 0;
+        let wpm = 0;
+        let accuracy = 100;
+        let startTime = null;
+        let totalTyped = 0;
+        let totalErrors = 0;
+        let keyPressCount = {};
+
+        // Elements
+        const referenceCode = document.getElementById('referenceCode');
+        const userCode = document.getElementById('userCode');
+        const userCodeDisplay = document.getElementById('userCodeDisplay');
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        const correctCharsEl = document.getElementById('correctChars');
+        const totalCharsEl = document.getElementById('totalChars');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const wpmDisplay = document.getElementById('wpmDisplay');
+        const accuracyDisplay = document.getElementById('accuracyDisplay');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const successMessage = document.getElementById('successMessage');
+        const overlay = document.getElementById('overlay');
+        const soundToggle = document.getElementById('soundToggle');
+        const ghostToggle = document.getElementById('ghostToggle');
+        const heatmapToggle = document.getElementById('heatmapToggle');
+        const hideReferenceBtn = document.getElementById('hideReferenceBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const referencePanel = document.getElementById('referencePanel');
+        const divider = document.getElementById('divider');
+        const referenceLineNumbers = document.getElementById('referenceLineNumbers');
+        const userLineNumbers = document.getElementById('userLineNumbers');
+        const themeSelector = document.getElementById('themeSelector');
+        const musicSelector = document.getElementById('musicSelector');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const bgMusic = document.getElementById('bgMusic');
+        const keyboardHeatmap = document.getElementById('keyboardHeatmap');
+        const referenceContainer = document.getElementById('referenceContainer');
+        const userContainer = document.getElementById('userContainer');
+        const feedbackIndicator = document.getElementById('feedbackIndicator');
+        const accuracyBox = document.getElementById('accuracyBox');
+
+        // Timer Functions
+        function startTimer() {
+            if (timerInterval) return;
+            
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function resetTimer() {
+            stopTimer();
+            timerSeconds = 0;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        // Music Functions
+        function playMusic(track) {
+            if (!track) {
+                bgMusic.pause();
+                bgMusic.src = '';
+                return;
+            }
+
+            bgMusic.src = MUSIC_TRACKS[track];
+            bgMusic.volume = volumeSlider.value / 100;
+            bgMusic.play().catch(err => console.log('Music playback failed:', err));
+        }
+
+        function updateVolume() {
+            bgMusic.volume = volumeSlider.value / 100;
+        }
+
+        // Sync line numbers with scroll
+        function syncLineNumbers(container, lineNumbers) {
+            lineNumbers.scrollTop = container.scrollTop;
+        }
+
+        // Initialize Audio
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // Show visual feedback
+        function showVisualFeedback(isCorrect) {
+            const indicator = feedbackIndicator;
+            indicator.className = 'feedback-indicator';
+            
+            if (isCorrect) {
+                indicator.innerHTML = '<i class="fas fa-check"></i>';
+                indicator.classList.add('show-correct');
+                accuracyBox.classList.add('flash-green');
+                setTimeout(() => accuracyBox.classList.remove('flash-green'), 300);
+            } else {
+                indicator.innerHTML = '<i class="fas fa-times"></i>';
+                indicator.classList.add('show-error');
+                accuracyBox.classList.add('flash-red');
+                setTimeout(() => accuracyBox.classList.remove('flash-red'), 300);
+            }
+            
+            setTimeout(() => {
+                indicator.classList.remove('show-correct', 'show-error');
+            }, 300);
+        }
+
+        // Play correct sound (LOUDER)
+        function playCorrectSound() {
+            if (!soundEnabled) return;
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 900; // Higher frequency
+            gainNode.gain.value = 0.15; // Much louder (was 0.06)
+            oscillator.type = 'sine';
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.05);
+        }
+
+        // Play different error sounds
+        function playErrorSound(errorType = 'normal') {
+            if (!soundEnabled) return;
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            if (errorType === 'case') {
+                oscillator.frequency.value = 300;
+                gainNode.gain.value = 0.12;
+                oscillator.type = 'square';
+            } else if (errorType === 'wrong') {
+                oscillator.frequency.value = 150;
+                gainNode.gain.value = 0.16;
+                oscillator.type = 'sawtooth';
+            } else {
+                oscillator.frequency.value = 200;
+                gainNode.gain.value = 0.12;
+            }
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        // Play success sound
+        function playSuccessSound() {
+            if (!soundEnabled) return;
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 523;
+            gainNode.gain.value = 0.15;
+            oscillator.start();
+            
+            setTimeout(() => { oscillator.frequency.value = 659; }, 100);
+            setTimeout(() => { oscillator.frequency.value = 784; }, 200);
+            setTimeout(() => { oscillator.frequency.value = 1047; }, 300);
+            
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // Calculate Score
+        function calculateScore() {
+            if (totalTyped === 0) return 0;
+            
+            const accuracyBonus = (accuracy / 100) * 1000;
+            const speedBonus = wpm * 10;
+            const totalScore = Math.floor(accuracyBonus + speedBonus);
+            
+            return totalScore;
+        }
+
+        // Calculate WPM
+        function calculateWPM() {
+            if (!startTime) return 0;
+            
+            const timeElapsed = (Date.now() - startTime) / 1000 / 60;
+            if (timeElapsed === 0) return 0;
+            
+            const wordsTyped = totalTyped / 5;
+            return Math.floor(wordsTyped / timeElapsed);
+        }
+
+        // Calculate Accuracy
+        function calculateAccuracy() {
+            if (totalTyped === 0) return 100;
+            return Math.floor(((totalTyped - totalErrors) / totalTyped) * 100);
+        }
+
+        // Update Stats
+        function updateStats() {
+            wpm = calculateWPM();
+            accuracy = calculateAccuracy();
+            score = calculateScore();
+            
+            scoreDisplay.textContent = score;
+            wpmDisplay.textContent = wpm;
+            accuracyDisplay.textContent = accuracy + '%';
+        }
+
+        // Update Keyboard Heatmap
+        function updateKeyboardHeatmap(key) {
+            if (key === '\n' || key === '\r') {
+                return;
+            }
+            
+            key = key.toLowerCase();
+            const displayKey = key === ' ' ? 'space' : key;
+            
+            if (!keyPressCount[displayKey]) {
+                keyPressCount[displayKey] = 0;
+            }
+            keyPressCount[displayKey]++;
+            
+            const keyElement = document.querySelector(`.key[data-key="${displayKey}"]`);
+            if (keyElement) {
+                const count = keyPressCount[displayKey];
+                
+                keyElement.classList.remove('heat-1', 'heat-2', 'heat-3', 'heat-4', 'heat-5', 'heat-max');
+                
+                if (count >= 50) {
+                    keyElement.classList.add('heat-max');
+                } else if (count >= 30) {
+                    keyElement.classList.add('heat-5');
+                } else if (count >= 20) {
+                    keyElement.classList.add('heat-4');
+                } else if (count >= 10) {
+                    keyElement.classList.add('heat-3');
+                } else if (count >= 5) {
+                    keyElement.classList.add('heat-2');
+                } else {
+                    keyElement.classList.add('heat-1');
+                }
+                
+                let countBadge = keyElement.querySelector('.key-count');
+                if (!countBadge) {
+                    countBadge = document.createElement('span');
+                    countBadge.className = 'key-count';
+                    keyElement.appendChild(countBadge);
+                }
+                countBadge.textContent = count;
+            }
+        }
+
+        // Syntax Highlighting
+        function highlightSyntax(code) {
+            let highlighted = code;
+            
+            highlighted = highlighted
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+            
+            highlighted = highlighted.replace(/"([^"\\]*(\\.[^"\\]*)*)"/g, '<span class="string">"$1"</span>');
+            highlighted = highlighted.replace(/\/\/(.*?)$/gm, '<span class="comment">//$1</span>');
+            highlighted = highlighted.replace(/\/\*([\s\S]*?)\*\//g, '<span class="comment">/*$1*/</span>');
+            highlighted = highlighted.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
+            
+            CSHARP_KEYWORDS.forEach(keyword => {
+                const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
+                highlighted = highlighted.replace(regex, '<span class="keyword">$1</span>');
+            });
+            
+            CSHARP_TYPES.forEach(type => {
+                const regex = new RegExp(`\\b(${type})\\b`, 'g');
+                highlighted = highlighted.replace(regex, '<span class="type">$1</span>');
+            });
+            
+            highlighted = highlighted.replace(/\b([A-Z][a-zA-Z0-9]*)\b/g, '<span class="class-name">$1</span>');
+            
+            return highlighted;
+        }
+
+        // Update line numbers
+        function updateLineNumbers(textarea, lineNumbersEl) {
+            const lines = textarea.value.split('\n').length;
+            let lineNumbersText = '';
+            for (let i = 1; i <= lines; i++) {
+                lineNumbersText += i + '\n';
+            }
+            lineNumbersEl.textContent = lineNumbersText;
+        }
+
+        // Update user code display with syntax highlighting
+        function updateUserCodeDisplay() {
+            const reference = referenceCode.value;
+            const user = userCode.value;
+            
+            let displayHtml = '';
+            let correctCount = 0;
+            
+            for (let i = 0; i < user.length; i++) {
+                const userChar = user[i];
+                const refChar = reference[i];
+                
+                let charHtml = userChar
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/ /g, '&nbsp;')
+                    .replace(/\n/g, '<br>');
+                
+                if (userChar === refChar) {
+                    displayHtml += `<span class="char-correct">${charHtml}</span>`;
+                    correctCount++;
+                } else {
+                    displayHtml += `<span class="char-incorrect">${charHtml}</span>`;
+                }
+            }
+            
+            const correctPart = user.substring(0, correctCount);
+            const highlightedCorrect = highlightSyntax(correctPart);
+            
+            if (user.length > correctCount) {
+                const incorrectPart = user.substring(correctCount);
+                let incorrectHtml = '';
+                for (let i = correctCount; i < user.length; i++) {
+                    let charHtml = user[i]
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/ /g, '&nbsp;')
+                        .replace(/\n/g, '<br>');
+                    incorrectHtml += `<span class="char-incorrect">${charHtml}</span>`;
+                }
+                displayHtml = highlightedCorrect + incorrectHtml;
+            } else {
+                displayHtml = highlightedCorrect;
+            }
+            
+            if (ghostTypingEnabled && user.length < reference.length) {
+                const ghostLength = Math.min(3, reference.length - user.length);
+                for (let i = 0; i < ghostLength; i++) {
+                    const ghostChar = reference[user.length + i];
+                    let ghostHtml = ghostChar
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/ /g, '&nbsp;')
+                        .replace(/\n/g, '<br>');
+                    
+                    displayHtml += `<span class="ghost-char">${ghostHtml}</span>`;
+                }
+            }
+            
+            userCodeDisplay.innerHTML = displayHtml;
+            
+            return correctCount;
+        }
+
+        // Check progress
+        function checkProgress() {
+            const reference = referenceCode.value;
+            const user = userCode.value;
+            
+            if (reference.length === 0) {
+                totalCharsEl.textContent = '0';
+                correctCharsEl.textContent = '0';
+                progressPercent.textContent = '0%';
+                progressFill.style.width = '0%';
+                return;
+            }
+            
+            totalCharsEl.textContent = reference.length;
+            
+            const correctCount = updateUserCodeDisplay();
+            correctCharsEl.textContent = correctCount;
+            
+            const progress = (correctCount / reference.length) * 100;
+            progressPercent.textContent = Math.floor(progress) + '%';
+            progressFill.style.width = progress + '%';
+            
+            updateStats();
+            
+            if (user === reference && reference.length > 0) {
+                showSuccess();
+            }
+        }
+
+        // Show success
+        function showSuccess() {
+            playSuccessSound();
+            stopTimer();
+            overlay.classList.add('show');
+            successMessage.classList.add('show');
+            
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalStats').innerHTML = `
+                WPM: <strong>${wpm}</strong> | 
+                Accuracy: <strong>${accuracy}%</strong> | 
+                Time: <strong>${timerDisplay.textContent}</strong>
+            `;
+        }
+
+        // Close success
+        function closeSuccess() {
+            overlay.classList.remove('show');
+            successMessage.classList.remove('show');
+        }
+
+        // Reset
+        function resetUserCode() {
+            userCode.value = '';
+            userCodeDisplay.innerHTML = '';
+            score = 0;
+            wpm = 0;
+            accuracy = 100;
+            totalTyped = 0;
+            totalErrors = 0;
+            startTime = null;
+            resetTimer();
+            checkProgress();
+            updateStats();
+            updateLineNumbers(userCode, userLineNumbers);
+            userCode.focus();
+        }
+
+        // Clear all
+        function clearAll() {
+            referenceCode.value = '';
+            userCode.value = '';
+            userCodeDisplay.innerHTML = '';
+            score = 0;
+            wpm = 0;
+            accuracy = 100;
+            totalTyped = 0;
+            totalErrors = 0;
+            startTime = null;
+            keyPressCount = {};
+            resetTimer();
+            
+            document.querySelectorAll('.key').forEach(key => {
+                key.classList.remove('heat-1', 'heat-2', 'heat-3', 'heat-4', 'heat-5', 'heat-max');
+                const badge = key.querySelector('.key-count');
+                if (badge) badge.remove();
+            });
+            
+            checkProgress();
+            updateStats();
+            updateLineNumbers(referenceCode, referenceLineNumbers);
+            updateLineNumbers(userCode, userLineNumbers);
+            referenceCode.focus();
+        }
+
+        // Toggle sound
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = soundToggle.querySelector('i');
+            icon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+            soundToggle.classList.toggle('active', soundEnabled);
+        }
+
+        // Toggle ghost typing
+        function toggleGhostTyping() {
+            ghostTypingEnabled = !ghostTypingEnabled;
+            ghostToggle.classList.toggle('active', ghostTypingEnabled);
+            checkProgress();
+        }
+
+        // Toggle heatmap
+        function toggleHeatmap() {
+            keyboardHeatmap.classList.toggle('show');
+            heatmapToggle.classList.toggle('active', keyboardHeatmap.classList.contains('show'));
+        }
+
+        // Toggle reference
+        function toggleReference() {
+            referenceHidden = !referenceHidden;
+            
+            // Check if mobile
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // On mobile, show reference panel as overlay
+                const isVisible = referencePanel.classList.toggle('mobile-visible');
+                const icon = hideReferenceBtn.querySelector('i');
+                icon.className = isVisible ? 'fas fa-eye-slash' : 'fas fa-eye';
+            } else {
+                // On desktop, hide/show normally
+                referencePanel.classList.toggle('hidden');
+                divider.classList.toggle('hidden');
+                const icon = hideReferenceBtn.querySelector('i');
+                icon.className = referenceHidden ? 'fas fa-eye-slash' : 'fas fa-eye';
+            }
+        }
+
+        // Close reference panel on mobile
+        function closeReferenceMobile() {
+            referencePanel.classList.remove('mobile-visible');
+            const icon = hideReferenceBtn.querySelector('i');
+            icon.className = 'fas fa-eye';
+        }
+
+        // Change theme
+        function changeTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+        }
+
+        // Handle tab
+        function handleTab(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                const spaces = '    ';
+                
+                this.value = this.value.substring(0, start) + spaces + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + spaces.length;
+                
+                if (this === userCode) {
+                    checkProgress();
+                    updateLineNumbers(userCode, userLineNumbers);
+                } else {
+                    updateLineNumbers(referenceCode, referenceLineNumbers);
+                }
+            }
+        }
+
+        // Event Listeners
+        let lastLength = 0;
+        userCode.addEventListener('input', function(e) {
+            if (!startTime && userCode.value.length > 0) {
+                startTime = Date.now();
+                startTimer();
+            }
+            
+            const reference = referenceCode.value;
+            const user = userCode.value;
+            
+            if (user.length > lastLength) {
+                const lastChar = user[user.length - 1];
+                const expectedChar = reference[user.length - 1];
+                
+                totalTyped++;
+                
+                updateKeyboardHeatmap(lastChar);
+                
+                if (lastChar === expectedChar) {
+                    playCorrectSound();
+                    showVisualFeedback(true);
+                } else {
+                    totalErrors++;
+                    showVisualFeedback(false);
+                    
+                    if (lastChar.toLowerCase() === expectedChar.toLowerCase()) {
+                        playErrorSound('case');
+                    } else {
+                        playErrorSound('wrong');
+                    }
+                }
+            }
+            
+            lastLength = user.length;
+            
+            checkProgress();
+            updateLineNumbers(userCode, userLineNumbers);
+        });
+
+        referenceCode.addEventListener('input', function() {
+            checkProgress();
+            updateLineNumbers(referenceCode, referenceLineNumbers);
+        });
+
+        // Scroll sync for line numbers
+        referenceContainer.addEventListener('scroll', function() {
+            syncLineNumbers(referenceContainer, referenceLineNumbers);
+        });
+
+        userContainer.addEventListener('scroll', function() {
+            syncLineNumbers(userContainer, userLineNumbers);
+        });
+
+        userCode.addEventListener('keydown', handleTab);
+        referenceCode.addEventListener('keydown', handleTab);
+
+        soundToggle.addEventListener('click', toggleSound);
+        ghostToggle.addEventListener('click', toggleGhostTyping);
+        heatmapToggle.addEventListener('click', toggleHeatmap);
+        hideReferenceBtn.addEventListener('click', toggleReference);
+        resetBtn.addEventListener('click', resetUserCode);
+        clearBtn.addEventListener('click', clearAll);
+        themeSelector.addEventListener('change', (e) => changeTheme(e.target.value));
+        musicSelector.addEventListener('change', (e) => playMusic(e.target.value));
+        volumeSlider.addEventListener('input', updateVolume);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'r') {
+                e.preventDefault();
+                resetUserCode();
+            }
+            if (e.ctrlKey && e.key === 'h') {
+                e.preventDefault();
+                toggleReference();
+            }
+        });
+
+        // Sample code on load
+        window.addEventListener('load', () => {
+            referenceCode.value = `using System;
+
+namespace HelloWorld
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+            
+            int number = 42;
+            string text = "C# is awesome!";
+            
+            // This is a comment
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine($"Count: {i}");
+            }
+        }
+    }
+}`;
+            updateLineNumbers(referenceCode, referenceLineNumbers);
+            updateLineNumbers(userCode, userLineNumbers);
+            checkProgress();
+        });
+    </script>
+</body>
+</html>
