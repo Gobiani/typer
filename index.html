@@ -486,6 +486,7 @@
             overflow-wrap: normal;
             min-height: 100%;
             pointer-events: none;
+            color: var(--text-primary);
         }
 
         .divider {
@@ -598,6 +599,7 @@
             background: var(--ghost-highlight);
             border-radius: 2px;
             animation: ghostPulse 1s infinite;
+            color: var(--text-primary);
         }
 
         @keyframes ghostPulse {
@@ -615,11 +617,13 @@
 
         .char-correct {
             background-color: rgba(16, 185, 129, 0.15);
+            color: var(--text-primary) !important;
         }
 
         .char-incorrect {
             background-color: rgba(239, 68, 68, 0.3);
             text-decoration: underline wavy var(--error-color);
+            color: var(--text-primary) !important;
         }
 
         .success-message {
@@ -1790,64 +1794,49 @@
             const reference = referenceCode.value;
             const user = userCode.value;
             
-            let displayHtml = '';
             let correctCount = 0;
             
-            for (let i = 0; i < user.length; i++) {
-                const userChar = user[i];
-                const refChar = reference[i];
-                
-                let charHtml = userChar
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/ /g, '&nbsp;')
-                    .replace(/\n/g, '<br>');
-                
-                if (userChar === refChar) {
-                    displayHtml += `<span class="char-correct">${charHtml}</span>`;
+            // Determine how many leading characters are correct
+            for (let i = 0; i < user.length && i < reference.length; i++) {
+                if (user[i] === reference[i]) {
                     correctCount++;
                 } else {
-                    displayHtml += `<span class="char-incorrect">${charHtml}</span>`;
+                    break;
                 }
             }
-            
-            const correctPart = user.substring(0, correctCount);
-            const highlightedCorrect = highlightSyntax(correctPart);
-            
-            if (user.length > correctCount) {
-                const incorrectPart = user.substring(correctCount);
-                let incorrectHtml = '';
-                for (let i = correctCount; i < user.length; i++) {
-                    let charHtml = user[i]
-                        .replace(/&/g, '&amp;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;')
-                        .replace(/ /g, '&nbsp;')
-                        .replace(/\n/g, '<br>');
-                    incorrectHtml += `<span class="char-incorrect">${charHtml}</span>`;
-                }
-                displayHtml = highlightedCorrect + incorrectHtml;
-            } else {
-                displayHtml = highlightedCorrect;
+
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < user.length; i++) {
+                const char = user[i];
+                const span = document.createElement('span');
+                let className = i < correctCount ? 'char-correct' : 'char-incorrect';
+
+                span.className = className;
+                span.textContent = char;
+
+                fragment.appendChild(span);
             }
-            
+
             if (ghostTypingEnabled && user.length < reference.length) {
                 const ghostLength = Math.min(3, reference.length - user.length);
                 for (let i = 0; i < ghostLength; i++) {
+                    const ghostSpan = document.createElement('span');
+                    ghostSpan.className = 'ghost-char';
+
                     const ghostChar = reference[user.length + i];
-                    let ghostHtml = ghostChar
-                        .replace(/&/g, '&amp;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;')
-                        .replace(/ /g, '&nbsp;')
-                        .replace(/\n/g, '<br>');
-                    
-                    displayHtml += `<span class="ghost-char">${ghostHtml}</span>`;
+                    if (ghostChar === '\n') {
+                        ghostSpan.textContent = '\n';
+                    } else {
+                        ghostSpan.textContent = ghostChar;
+                    }
+
+                    fragment.appendChild(ghostSpan);
                 }
             }
-            
-            userCodeDisplay.innerHTML = displayHtml;
+
+            userCodeDisplay.innerHTML = '';
+            userCodeDisplay.appendChild(fragment);
             
             return correctCount;
         }
